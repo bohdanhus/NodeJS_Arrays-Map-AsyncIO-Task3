@@ -1,10 +1,13 @@
-let array = ['hours','apple', 'orange', 'apple', 'orange', 'apple', 'hours', 'days', 'hours'];
+let string = 'today I am learning a new method, This method is called reduce, Reduce is very good method. I Like that. I am.'
+
+
+let arr = string.toLowerCase().replace(/[.,\s]/g, ' ').split(' ').filter(String);
 
 function getWordCounterReduce() {
-    return array.reduce((prev, next) => {
+    return arr.reduce((prev, next) => {
       prev[next] = (prev[next] + 1) || 1;
       return prev;
     }, {});
   }
-console.log(getWordCounterReduce(array)); 
 
+console.log(getWordCounterReduce(arr))
