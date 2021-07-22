@@ -1,0 +1,22 @@
+{
+  "name": "third_task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "first_task.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bromanovich99/third_task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bromanovich99/third_task/issues"
+  },
+  "homepage": "https://github.com/bromanovich99/third_task#readme",
+  "dependencies": {
+    "jest": "^27.0.6"
+  }
+}

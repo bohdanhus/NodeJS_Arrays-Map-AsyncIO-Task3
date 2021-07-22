@@ -1,12 +1,13 @@
-function pl(n, word) {
-    return `${n} ${word}${n > 1 ? 's' : ''}`;
-}
+const plural = require("./plural")
 
 describe('pluralization', () => {
   it('has no effect with 1', () => {
-      expect(pl(1, 'cat')).toBe('1 cat');
+      expect(plural(1, 'плюс')).toBe('1 плюс');
+  })
+  it('adds \ "s\" for 2', () => {
+    expect(plural(2, 'плюса')).toBe('2 плюса');
   })
   it('adds \ "s\" for 2 and more', () => {
-    expect(pl(2, 'cat')).toBe('2 cats');
+    expect(plural(2, 'плюсов')).toBe('2 плюсов');
   })
 })
