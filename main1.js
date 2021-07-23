@@ -7,16 +7,16 @@ const results = [];
 const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Ноябрь', 'Декабрь',];
 
 
-fs.createReadStream('employees.csv')
+fs.createReadStream(process.argv[2])
     .pipe(csv())
     .on('data', (data) => (results.push(data)))
     .on('end', () => {
         let eMap = formatByMonth(results);
-        showPlanning(eMap, 1); // change this value
+        showPlanning(eMap, +process.argv[3]); // change the value to get the desired number of months and their birthdays
     });
+// write in console - "/node main1 employees.csv 2"
 
-
-function formatByMonth(emp) { //
+function formatByMonth(emp) { // transform input arrayOfObjects
     let employees;
     let employMap;
     employMap = new Map();
@@ -34,7 +34,7 @@ function formatByMonth(emp) { //
     return employMap;
 }
 
-function getAge(date) {
+function getAge(date) { // get age of employee from birthday date
     let today = new Date();
     let age = today.getFullYear() - date.getFullYear();
     let m = today.getMonth() - date.getMonth();
@@ -56,7 +56,7 @@ function Plural(num, nom, gen, plu) {
     }
 }
 
-function displayBirthdayOfMonth(employees) {
+function displayBirthdayOfMonth(employees) { // creating an output string
     let string = ""
     for (let j = 0; j < employees.length; j++) {
         string = string + (`(${employees[j].birthDay.getDate()}) -  ${employees[j].fullName} (${Plural(getAge(employees[j].birthDay), "год", "года", "лет")})` + "\n");
@@ -64,7 +64,7 @@ function displayBirthdayOfMonth(employees) {
     return string
 }
 
-function showPlanning(eMap, horizontalPlanning) {
+function showPlanning(eMap, horizontalPlanning) { // creating output Map in console results
     let currentDate = new Date();
     let currentYear = currentDate.getFullYear();
     let mm = currentDate.getMonth() + 1;
