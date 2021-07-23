@@ -1,23 +1,22 @@
 
 const getWordCounterReduce = require("./first_task")
 
-let testText = "today I am learning a new method, This method is called reduce.";
-
 describe("object", () => {
-    it(`${testText}`, () => {
+    it('mixed case text', () => {
         let result = {
-            "a" : 1,
-            "am" : 1,
-            "called" : 1,
-            "i" : 1,
-            "is" : 1,
-            "learning" : 1,
-            "method" : 2,
-            "new": 1,
-            "reduce" : 1,
-            "this" : 1,
-            "today" : 1,
+            "red" : 1,
+            "green" : 1,
+            "blue" : 2,
         };
-        expect(getWordCounterReduce(testText)).toStrictEqual(result);
+        expect(getWordCounterReduce("Blue green blue, red")).toStrictEqual(result);
+    });
+
+    it('lower case text', () => {
+        let result = {
+             "red" : 2,
+            "green" : 1,
+            "blue" : 1,
+        };
+        expect(getWordCounterReduce("red green blue red")).toStrictEqual(result);
     });
 });

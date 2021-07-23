@@ -9,95 +9,76 @@
 // 0 - только текущий
 // 1 - текущий и следующий
 // 2 - текущий и два следующих
-// moment().format();
-//https://coderoad.ru/43715179/%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0-%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D0%B0-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2-%D0%BF%D0%BE-%D0%B4%D0%B0%D1%82%D0%B0%D0%BC
-//////////////////////////////////////////////////////////////
-
-const day1 = new Date(2000, 9, 20);
-const day2 = new Date(1991, 7, 11);
-const day3 = new Date(1997, 8, 17);
-const day4 = new Date(2000, 9, 8);
-const day5 = new Date(1993, 7, 15);
-const day6 = new Date(1996, 7, 2);
-const day7 = new Date(1996, 8, 2);
-
-
 let employees = [
-    { name: "Ivan Ivanov", age: 20, birthday: day1 },  
-    { name: "Petya Petrov", age: 25, birthday: day2 },
-    { name: "Kolya Novogodnij", age: 20, birthday: day3 },
-    { name: "Stas Rojdestvenskiy", age: 23, birthday: day4 },
-    { name: "Vasya Ivanov", age: 20, birthday: day4 },
-    { name: "Ivan Petrov", age: 25, birthday: day5 },
-    { name: "Stas Novogodnij", age: 20, birthday: day6 },
-    { name: "Vladimir Rojdestvenskiy", age: 23, birthday: day7 },
+    {fullName: 'Коля Новогодний', birthDay: '1999-07-02'},
+    {fullName: 'Стас Неяснов', birthDay: '1990-07-16'},
+    {fullName: 'Марина Майская', birthDay: '2003-08-17'},
+    {fullName: 'Ваня Иванов', birthDay: '2000-08-20'},
+    {fullName: 'Петя Петров', birthDay: '2001-09-12'},
+    {fullName: 'Стас Рождественский', birthDay: '2003-09-12'}
 ];
+const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Ноябрь', 'Декабрь',];
 
-const sortEmployees = (employees) => { // employees глобально отсортирован
-    employees.sort(function (a, b) {
-        return new Date(a.birthday) - new Date(b.birthday);
+let eMap = formatByMonth(employees);
+
+
+function formatByMonth(emp) {
+    let employees;
+    let employMap;
+    employMap = new Map();
+    emp.forEach((user) => {
+        let birthDate = new Date(user.birthDay);
+        let birthMonth = birthDate.getMonth() + 1;
+        if (employMap.has(birthMonth) !== true) {
+            employMap.set(birthMonth, [{fullName: user.fullName, birthDay: birthDate}])
+        } else {
+            employees = employMap.get(birthMonth);
+            employees.push({fullName: user.fullName, birthDay: birthDate});
+            employMap.set(birthMonth, employees)
+        }
     });
+    return employMap;
 };
-sortEmployees(employees);
-// console.log(employees);
-console.log(Object.values(employees));
 
-// const groupEmployees = (employees) => {
-//    let list = new Map();
-//    forEach.employees.
-// }
+function getAge(date) {
+    let today = new Date();
+    let age = today.getFullYear() - date.getFullYear();
+    let m = today.getMonth() - date.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < date.getDate())) {
+        age--;
+    }
+    return age;
+}
+function Plural(num, nom, gen, plu) {
+    if (num % 10 == 0) {
+        return `${num} ${plu}`;
+    } else if (num % 10 === 1) {
+        return `${num} ${nom}`;
+    } else if (num % 10 > 1 && num % 10 < 5){
+        return `${num}  ${gen}`;
+    } else if (num % 10 >= 5 && num % 10 <= 10){
+        return `${num} ${plu}`;
+    }
+};
+function displayBirthdayOfMonth(employees) {
+    let string = ""
+    for (let j = 0; j < employees.length; j++) {
+        string = string + (`(${employees[j].birthDay.getDate()}) -  ${employees[j].fullName} (${Plural(getAge(employees[j].birthDay), "год", "года", "лет")})` + "\n");
+    }
+    return string
+}
+function showPlanning(eMap, horizontalPlanning) {
+    let currentDate = new Date();
+    let currentYear = currentDate.getFullYear();
+    let mm = currentDate.getMonth() + 1;
+    for (let i = mm; i <= mm + horizontalPlanning; i++) {
+        for (const [key, employees] of eMap) {
+            if (key === i) {
+                console.log(`${months[i - 1]} ${currentYear} ` )
+                console.log(displayBirthdayOfMonth(employees));
+            }
+        }
+    }
+}
 
-// function show(employees, state) { 
-//     console.log('date')
-//     console.log()
-// }
-
-// function displayOutput(n, month, date, name, years) {
-
-
-//     if (n === 0) {
-//         return
-//     } else if (n === 1) {
-//         return
-//     } else if (n === 2) {
-//         return
-//     }
-//     return
-// }
-
-///////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-// function newMapEmployees (employees) {
-//     let empl = new Map();
-
-
-// }
-
-
-// let myJSON = { "name": "Chris", "age": "38" };
-// myJSON
-// let myString = JSON.stringify(myJSON);
-// console.log(myString);
-
-// .toLocaleDateString('ru-RU', {month: "long", year: "numeric"})
-// var myArray = [
-//     {date: "2017-01-01", num: "2"},
-//     {date: "2017-01-02", num: "3"},
-//     {date: "2017-02-04", num: "6"},
-//     {date: "2017-02-05", num: "15"}
-// ],
-//     groupKey = 0;
-//     groups = myArray.reduce(function (r, o) {
-//         var m = o.date.split(('-'))[1];
-//         (r[m])? r[m].data.push(o) : r[m] = {group: String(groupKey++), data: [o]};
-//         return r;
-//     }, {});
-
-// var result = Object.keys(groups).map(function(k){ return groups[k]; });
-
-// console.log(result);
+showPlanning(eMap, 24);

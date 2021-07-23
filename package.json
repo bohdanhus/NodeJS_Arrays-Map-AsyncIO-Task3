@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/bromanovich99/third_task#readme",
   "dependencies": {
-    "jest": "^27.0.6"
+    "jest": "^27.0.6",
+    "moment": "^2.29.1"
   }
 }
