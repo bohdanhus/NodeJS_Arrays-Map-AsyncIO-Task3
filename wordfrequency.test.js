@@ -1,5 +1,5 @@
 
-const getWordCounterReduce = require("./first_task")
+const getWordCounterReduce = require("./frequency")
 
 describe("object", () => {
     it('mixed case text', () => {
